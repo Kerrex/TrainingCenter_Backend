@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.TokenStore
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer
 
 
 @Configuration
@@ -51,7 +52,7 @@ class AuthorizationServerConfig : AuthorizationServerConfigurerAdapter() {
                 .inMemory()
                 .withClient(clientId)
                 .secret(clientSecret)
-                .authorizedGrantTypes(grantType!!)
+                .authorizedGrantTypes("password", "refresh_token")
                 .scopes(scopeRead, scopeWrite)
                 .resourceIds(resourceIds!!)
     }

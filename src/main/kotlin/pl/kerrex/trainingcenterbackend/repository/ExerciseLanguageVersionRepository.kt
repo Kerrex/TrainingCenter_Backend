@@ -1,0 +1,9 @@
+package pl.kerrex.trainingcenterbackend.repository
+
+import org.springframework.data.repository.PagingAndSortingRepository
+import pl.kerrex.trainingcenterbackend.domain.ExerciseLanguageVersion
+import pl.kerrex.trainingcenterbackend.domain.ExerciseLanguageVersion.ExerciseLanguageVersionPK
+
+interface ExerciseLanguageVersionRepository : PagingAndSortingRepository<ExerciseLanguageVersion, ExerciseLanguageVersionPK> {
+
+}

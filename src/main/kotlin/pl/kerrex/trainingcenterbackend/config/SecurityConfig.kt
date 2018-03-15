@@ -18,6 +18,9 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.crypto.password.StandardPasswordEncoder
+import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension
 
 
 @Configuration
@@ -37,6 +40,9 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     @Autowired
     private val userDetailsService: UserDetailsService? = null
 
+    fun getPasswordEncoder(): PasswordEncoder {
+        return StandardPasswordEncoder()
+    }
     @Bean
     @Throws(Exception::class)
     override fun authenticationManager(): AuthenticationManager {
@@ -46,12 +52,13 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     @Throws(Exception::class)
     override fun configure(auth: AuthenticationManagerBuilder?) {
         auth!!.userDetailsService<UserDetailsService>(userDetailsService)
-                .passwordEncoder(ShaPasswordEncoder(encodingStrength!!))
+                .passwordEncoder(getPasswordEncoder())
     }
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
-        http
+                http
+                .authorizeRequests().antMatchers("/oauth/token", "/register", "/register/*").permitAll().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -82,5 +89,10 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         defaultTokenServices.setTokenStore(tokenStore())
         defaultTokenServices.setSupportRefreshToken(true)
         return defaultTokenServices
+    }
+
+    @Bean
+    fun securityEvaluationContextExtension(): SecurityEvaluationContextExtension {
+        return SecurityEvaluationContextExtension()
     }
 }
