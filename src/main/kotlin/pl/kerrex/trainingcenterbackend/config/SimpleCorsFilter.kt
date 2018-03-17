@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-class SimpleCorsFilter : Filter {
+open class SimpleCorsFilter : Filter {
 
     @Throws(IOException::class, ServletException::class)
     override fun doFilter(req: ServletRequest, res: ServletResponse, chain: FilterChain) {

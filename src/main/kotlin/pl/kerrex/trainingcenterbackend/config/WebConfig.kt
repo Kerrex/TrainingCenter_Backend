@@ -9,7 +9,7 @@ import org.springframework.web.filter.CorsFilter
 
 
 @Configuration
-class WebConfig {
+open class WebConfig {
     /**
      * Allowing all origins, headers and methods here is only intended to keep this example simple.
      * This is not a default recommended configuration. Make adjustments as
@@ -17,7 +17,7 @@ class WebConfig {
      *
      */
     @Bean
-    fun corsFilter(): CorsFilter {
+    open fun corsFilter(): CorsFilter {
         val source = UrlBasedCorsConfigurationSource()
         val config = CorsConfiguration()
         config.allowCredentials = true

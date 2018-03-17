@@ -26,7 +26,7 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-class SecurityConfig : WebSecurityConfigurerAdapter() {
+open class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Value("\${security.signing-key}")
     private val signingKey: String? = null
@@ -71,19 +71,19 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     @Bean
-    fun accessTokenConverter(): JwtAccessTokenConverter {
+    open fun accessTokenConverter(): JwtAccessTokenConverter {
         val converter = JwtAccessTokenConverter()
         converter.setSigningKey(signingKey!!)
         return converter
     }
 
     @Bean
-    fun tokenStore(): TokenStore {
+    open fun tokenStore(): TokenStore {
         return JwtTokenStore(accessTokenConverter())
     }
 
     @Bean
-    @Primary //Making this primary to avoid any accidental duplication with another token service instance of the same name
+    @Primary open //Making this primary to avoid any accidental duplication with another token service instance of the same name
     fun tokenServices(): DefaultTokenServices {
         val defaultTokenServices = DefaultTokenServices()
         defaultTokenServices.setTokenStore(tokenStore())
@@ -92,7 +92,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     @Bean
-    fun securityEvaluationContextExtension(): SecurityEvaluationContextExtension {
+    open fun securityEvaluationContextExtension(): SecurityEvaluationContextExtension {
         return SecurityEvaluationContextExtension()
     }
 }

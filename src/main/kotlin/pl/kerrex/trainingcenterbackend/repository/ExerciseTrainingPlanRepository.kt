@@ -10,10 +10,9 @@ import pl.kerrex.trainingcenterbackend.domain.ExerciseTrainingPlan
 @RepositoryRestResource(path = "/exercise_training_plans")
 interface ExerciseTrainingPlanRepository : PagingAndSortingRepository<ExerciseTrainingPlan, ExerciseTrainingPlan.ExerciseTrainingPlanPK> {
 
-/*    @RestResource(path = "/by_training_plan")
-    @Query("SELECT etp FROM ExerciseTrainingPlan etp " +
-            "JOIN etp.trainingPlan tp " +
-            "JOIN tp.user u " +
-                "WHERE u.username = ?#{principal} AND tp.id = :trainingPlanId")
-    fun findByTrainingPlanId(@Param("trainingPlanId") trainingPlanId: Long)*/
+    @Query("SELECT etp From ExerciseTrainingPlan etp " +
+            "WHERE etp.exerciseTrainingPlanPk.trainingPlan.id = :trainingPlanId " +
+                "AND etp.exerciseTrainingPlanPk.exercise.id = :exerciseId")
+    fun findByTrainingPlanIdAndExerciseId(@Param("trainingPlanId") trainingPlanId: Long?,
+                                          @Param("exerciseId") exerciseId: Long?)
 }

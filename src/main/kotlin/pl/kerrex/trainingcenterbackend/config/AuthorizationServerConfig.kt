@@ -17,7 +17,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 
 @Configuration
 @EnableAuthorizationServer
-class AuthorizationServerConfig : AuthorizationServerConfigurerAdapter() {
+open class AuthorizationServerConfig : AuthorizationServerConfigurerAdapter() {
 
     @Value("\${security.jwt.client-id}")
     private val clientId: String? = null

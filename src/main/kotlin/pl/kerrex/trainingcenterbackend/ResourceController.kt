@@ -11,7 +11,7 @@ import pl.kerrex.trainingcenterbackend.domain.User
 
 @RestController
 @RequestMapping("/springjwt")
-class ResourceController {
+open class ResourceController {
     @Autowired
     private val userService: GenericService? = null
 

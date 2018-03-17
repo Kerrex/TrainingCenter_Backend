@@ -1,5 +1,6 @@
 package pl.kerrex.trainingcenterbackend.domain
 
+import org.codehaus.jackson.annotate.JsonProperty
 import javax.persistence.*
 
 @Entity
@@ -17,4 +18,8 @@ class Exercise {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "exerciseLanguageVersionPk.exercise")
     var exerciseLanguageVersions: MutableList<ExerciseLanguageVersion>? = null
+
+    @JsonProperty
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exerciseTrainingPlanPk.exercise")
+    var exerciseTrainingPlan: MutableList<ExerciseTrainingPlan>? = null
 }

@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @Configuration
 @EnableResourceServer
-class ResourceServerConfig : ResourceServerConfigurerAdapter() {
+open class ResourceServerConfig : ResourceServerConfigurerAdapter() {
     @Autowired
     private val tokenServices: ResourceServerTokenServices? = null
 

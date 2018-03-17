@@ -19,11 +19,11 @@ import javax.sql.DataSource
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = ["pl.kerrex.trainingcenterbackend.repository"])
-class DatasourceConfig {
+open class DatasourceConfig {
 
     @Bean
     @Throws(PropertyVetoException::class)
-    fun datasource(): DataSource {
+    open fun datasource(): DataSource {
         val builder = EmbeddedDatabaseBuilder()
 
         return builder
@@ -35,7 +35,7 @@ class DatasourceConfig {
 
     @Bean
     @Throws(PropertyVetoException::class)
-    fun entityManagerFactory(@Qualifier("datasource") ds: DataSource): LocalContainerEntityManagerFactoryBean {
+    open fun entityManagerFactory(@Qualifier("datasource") ds: DataSource): LocalContainerEntityManagerFactoryBean {
         val entityManagerFactory = LocalContainerEntityManagerFactoryBean()
         entityManagerFactory.dataSource = ds
         entityManagerFactory.setPackagesToScan("pl.kerrex.trainingcenterbackend.domain")
@@ -45,7 +45,7 @@ class DatasourceConfig {
     }
 
     @Bean
-    fun transactionManager(entityManagerFactory: EntityManagerFactory): PlatformTransactionManager {
+    open fun transactionManager(entityManagerFactory: EntityManagerFactory): PlatformTransactionManager {
         val transactionManager = JpaTransactionManager()
         transactionManager.entityManagerFactory = entityManagerFactory
         return transactionManager
